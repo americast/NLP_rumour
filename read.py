@@ -30,10 +30,12 @@ import numpy as np
 mr = np.array(mr)
 MR = (mr == "yes").astype('int')
 
-np.save("./data/X.npy",TT)
-np.save("data/Y.npy",MR)
+np.save("./data/X.npy",TT.todense()[:int(0.7 * len(MR))])
+np.save("data/Y.npy",MR[:int(0.7 * len(MR))])
 
-pu.db
 
+np.save("./data/X_val.npy",TT.todense()[int(0.7 * len(MR)):])
+np.save("data/Y_val.npy",MR[int(0.7 * len(MR)):])
+# pu.db
 # makes the passed rows header 
 # pd.read_csv("pokemon.csv", header =[1]) 
