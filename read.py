@@ -22,6 +22,17 @@ a = pd.DataFrame.dropna(a)
 tt.extend(list(a["Tweet Text"]))
 mr.extend(list(a["Medical relevance"]))
 
+from sklearn.feature_extraction.text import TfidfVectorizer
+vectorizer = TfidfVectorizer()
+TT = vectorizer.fit_transform(tt)
+
+import numpy as np 
+mr = np.array(mr)
+MR = (mr == "yes").astype('int')
+
+np.save("./data/X.npy",TT)
+np.save("data/Y.npy",MR)
+
 pu.db
 
 # makes the passed rows header 
