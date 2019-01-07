@@ -11,11 +11,11 @@ import numpy as np
 BATCH_SIZE = 100000
 MAX_ITER = 1000
 
-X_train = np.load("data/X.npy")
-Y_train = np.load("data/Y.npy")
+X_train = np.load("data/X_new.npy")
+Y_train = np.load("data/Y_new.npy")
 
-X_val = np.load("data/X_val.npy")
-Y_val = np.load("data/Y_val.npy")
+X_val = np.load("data/X_new_val.npy")
+Y_val = np.load("data/Y_new_val.npy")
 
 Y_train = keras.utils.to_categorical(Y_train, num_classes = 2)
 Y_val = keras.utils.to_categorical(Y_val, num_classes = 2)
