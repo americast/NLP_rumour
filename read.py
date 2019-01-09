@@ -29,54 +29,74 @@ mr_3 = list(a["Medical relevance"])
 len_3 = len(list(a["Medical relevance"]))
 
 
-tt = copy(tt_1)
-tt.extend(tt_2)
-tt.extend(tt_3)
-
 from sklearn.feature_extraction.text import TfidfVectorizer
 vectorizer = TfidfVectorizer()
-TT = vectorizer.fit_transform(tt)
+TT_1 = vectorizer.fit_transform(tt_1)
+TT_2 = vectorizer.fit_transform(tt_2)
+TT_3 = vectorizer.fit_transform(tt_3)
 
-TT = TT.todense()
+TT_1 = TT_1.todense()
+TT_2 = TT_2.todense()
+TT_3 = TT_3.todense()
 
 # pu.db
 
-TT_1 = TT[:len_1]
-TT = TT[len_1:]
+TT_1_train = TT_1[:int(0.7 * len_1)]
+TT_2_train = TT_2[:int(0.7 * len_2)]
+TT_3_train = TT_3[:int(0.7 * len_3)]
 
-TT_2 = TT[:len_2]
-TT = TT[len_2:]
-
-TT_3 = TT
-
-TT_final = TT_1[:int(0.7 * len_1)]
-TT_final = np.vstack((TT_final, TT_2[:int(0.7 * len_2)]))
-TT_final = np.vstack((TT_final, TT_3[:int(0.7 * len_3)]))
-
-TT_val = TT_1[int(0.7 * len_1):]
-TT_val = np.vstack((TT_val, TT_2[int(0.7 * len_2):]))
-TT_val = np.vstack((TT_val, TT_3[int(0.7 * len_3):]))
-
-MR_final = mr_1[:int(0.7 * len_1)]
-MR_final.extend(mr_2[:int(0.7 * len_2)])
-MR_final.extend(mr_3[:int(0.7 * len_3)])
-
-MR_val = mr_1[int(0.7 * len_1):]
-MR_val.extend(mr_2[int(0.7 * len_2):])
-MR_val.extend(mr_3[int(0.7 * len_3):])
-
-MR_final = np.array(MR_final)
-MR_final = (MR_final == "yes").astype('int')
-
-MR_val = np.array(MR_val)
-MR_val = (MR_val == "yes").astype('int')
-
-np.save("./data/X_new.npy",TT_final)
-np.save("data/Y_new.npy",MR_final)
+TT_1_val = TT_1[int(0.7 * len_1):]
+TT_2_val = TT_2[int(0.7 * len_2):]
+TT_3_val = TT_3[int(0.7 * len_3):]
 
 
-np.save("./data/X_new_val.npy",TT_val)
-np.save("data/Y_new_val.npy",MR_val)
+
+MR_1_train = mr_1[:int(0.7 * len_1)]
+MR_2_train = mr_2[:int(0.7 * len_2)]
+MR_3_train = mr_3[:int(0.7 * len_3)]
+
+
+MR_1_val = mr_1[int(0.7 * len_1):]
+MR_2_val = mr_2[int(0.7 * len_2):]
+MR_3_val = mr_3[int(0.7 * len_3):]
+
+MR_1_train = np.array(MR_1_train)
+MR_1_train = (MR_1_train == "yes").astype('int')
+
+MR_2_train = np.array(MR_2_train)
+MR_2_train = (MR_2_train == "yes").astype('int')
+
+MR_3_train = np.array(MR_3_train)
+MR_3_train = (MR_3_train == "yes").astype('int')
+
+MR_1_val = np.array(MR_1_val)
+MR_1_val = (MR_1_val == "yes").astype('int')
+
+MR_2_val = np.array(MR_2_val)
+MR_2_val = (MR_2_val == "yes").astype('int')
+
+MR_3_val = np.array(MR_3_val)
+MR_3_val = (MR_3_val == "yes").astype('int')
+
+np.save("./data/X_1.npy",TT_1_train)
+np.save("data/Y_1.npy",MR_1_train)
+
+np.save("./data/X_2.npy",TT_2_train)
+np.save("data/Y_2.npy",MR_2_train)
+
+np.save("./data/X_3.npy",TT_3_train)
+np.save("data/Y_3.npy",MR_3_train)
+
+np.save("./data/X_1_val.npy",TT_1_val)
+np.save("data/Y_1_val.npy",MR_1_val)
+
+np.save("./data/X_2_val.npy",TT_2_val)
+np.save("data/Y_2_val.npy",MR_2_val)
+
+np.save("./data/X_3_val.npy",TT_3_val)
+np.save("data/Y_3_val.npy",MR_3_val)
+
+
 
 all_ = {"len_1": len_1, "len_2": len_2, "len_3": len_3}
 f = open("data/len.json", "w")
