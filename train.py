@@ -8,7 +8,7 @@ from keras.callbacks import ModelCheckpoint
 
 import numpy as np
 
-DATA_NUM = 1
+DATA_NUM = 3
 
 BATCH_SIZE = 100000
 MAX_ITER = 1000
