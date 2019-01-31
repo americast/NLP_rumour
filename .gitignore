@@ -1,2 +1,4 @@
 *.npy
 *.h5
+fastText/*
+
