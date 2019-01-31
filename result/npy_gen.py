@@ -19,7 +19,7 @@ df = df[df["Medical relevance"] != 'no']
 tweets = list(df["Tweet Text"])
 Y = list(df["X"])
 
-arr_full = np.zeros((110, 100, len(tweets)))
+arr_full = np.zeros((len(tweets), 110, 100))
 Y_final = np.zeros((len(tweets)))
 
 i = 0
@@ -31,16 +31,18 @@ for tweet in tweets:
 	# pu.db
 	for each_word in tweet.split():
 		if re.sub('[^A-Za-z0-9]+', '', each_word.lower()) == re.sub('[^A-Za-z0-9]+', '', key_word.lower()):
-			pos = i
+			# print("Here")
+			pos = count
 		if re.sub('[^A-Za-z0-9]+', '', each_word.lower()) in all_dict:
 			arr[count] = all_dict[re.sub('[^A-Za-z0-9]+', '', each_word.lower())]
 		count+=1
 		if (count >= 110):
 			break
 	# pu.db
-	arr_full[:,:,i] = arr
+	arr_full[i,...] = arr
 	Y_final[i] = pos
 	i+=1
 
 np.save("all.npy", arr_full)
 np.save("Y.npy", Y_final)
+# pu.db
