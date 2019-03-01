@@ -9,10 +9,11 @@ import pudb
 all = np.load("result/all.npy")
 Y = np.load("result/Y.npy")
 
-f = open("data/Cancer Claim Data - X causes  cancer.csv", "r")
-df = pd.read_csv(f)
-f.close()
+# f = open("data/Cancer Claim Data - X causes  cancer.csv", "r")
+# df = pd.read_csv(f)
+# f.close()
 
+pu.db
 # Y = list(df("X"))
 
 input = Input(shape=(110, 100))

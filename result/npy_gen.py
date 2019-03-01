@@ -3,6 +3,8 @@ import json
 import pudb
 import pandas as pd
 import re
+from nltk.stem import SnowballStemmer
+snowball_stemmer = SnowballStemmer("english")
 
 f = open("all.json", "r")
 all_dict = json.load(f)
@@ -23,26 +25,34 @@ arr_full = np.zeros((len(tweets), 110, 100))
 Y_final = np.zeros((len(tweets)))
 
 i = 0
+j = 0
 for tweet in tweets:
 	arr = np.zeros((110, 100))
 	count = 0
-	pos = 0
+	pos = -1
 	key_word = Y[i]
 	# pu.db
 	for each_word in tweet.split():
-		if re.sub('[^A-Za-z0-9]+', '', each_word.lower()) == re.sub('[^A-Za-z0-9]+', '', key_word.lower()):
-			# print("Here")
+		#if i==82:
+		# 	print(each_word)
+		# 	print(each_word.lower())
+		# 	print(snowball_stemmer.stem(re.sub('[^A-Za-z0-9]+', '', each_word.lower())))
+		# 	print()
+		if snowball_stemmer.stem(re.sub('[^A-Za-z0-9]+', '', each_word.lower())) == snowball_stemmer.stem(re.sub('[^A-Za-z0-9]+', '', key_word.split()[0].lower())):
 			pos = count
-		if re.sub('[^A-Za-z0-9]+', '', each_word.lower()) in all_dict:
-			arr[count] = all_dict[re.sub('[^A-Za-z0-9]+', '', each_word.lower())]
+		if snowball_stemmer.stem(re.sub('[^A-Za-z0-9]+', '', each_word.lower())) in all_dict:
+			arr[count] = all_dict[snowball_stemmer.stem(re.sub('[^A-Za-z0-9]+', '', each_word.lower()))]
 		count+=1
 		if (count >= 110):
 			break
-	# pu.db
-	arr_full[i,...] = arr
-	Y_final[i] = pos
+	if pos != -1:
+		arr_full[j,...] = arr
+		Y_final[j] = pos
+		j+=1
 	i+=1
 
-np.save("all.npy", arr_full)
-np.save("Y.npy", Y_final)
+pu.db
+
+np.save("all.npy", arr_full[:j,...])
+np.save("Y.npy", Y_final[:j])
 # pu.db
