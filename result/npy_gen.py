@@ -50,7 +50,7 @@ for tweet in tweets:
 	Y_final[i] = pos
 	i+=1
 
-pu.db
+# pu.db
 
 np.save("all.npy", arr_full)
 np.save("Y.npy", Y_final)
