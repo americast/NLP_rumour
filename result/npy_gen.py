@@ -53,6 +53,10 @@ for tweet in tweets:
 
 pu.db
 
-np.save("all.npy", arr_full[:j,...])
-np.save("Y.npy", Y_final[:j])
+np.save("X_0.npy", arr_full[:j,...])
+np.save("Y_0.npy", Y_final[:j])
+
+np.save("X_0_val.npy", arr_full[j:,...])
+np.save("Y_0_val.npy", Y_final[j:])
+
 # pu.db

@@ -7,6 +7,7 @@ from keras.optimizers import SGD
 from keras.callbacks import ModelCheckpoint
 
 import numpy as np
+import pudb
 
 DATA_NUM = 3
 
@@ -18,6 +19,7 @@ Y_train = np.load("data/Y_"+str(DATA_NUM)+".npy")
 
 X_val = np.load("data/X_"+str(DATA_NUM)+"_val.npy")
 Y_val = np.load("data/Y_"+str(DATA_NUM)+"_val.npy")
+# pu.db
 
 Y_train = keras.utils.to_categorical(Y_train, num_classes = 2)
 Y_val = keras.utils.to_categorical(Y_val, num_classes = 2)
@@ -45,6 +47,12 @@ save_best_only = True)
 model.fit(X_train, Y_train,
           epochs=MAX_ITER, shuffle=True, verbose=True, validation_data=(X_val, Y_val),
           batch_size=BATCH_SIZE, callbacks=[checkpointer])
+model.save("rel_"+str(DATA_NUM)+".h5")
 score = model.evaluate(X_val, Y_val, batch_size=BATCH_SIZE)
 print(score)
-
+from sklearn.metrics import precision_recall_fscore_support
+res = model.predict(X_val)
+res = np.argmax(res, axis = -1)
+val = np.argmax(Y_val, axis = -1) 
+out = precision_recall_fscore_support(val, res)
+pu.db
