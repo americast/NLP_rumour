@@ -33,7 +33,8 @@ for tweet in tweets:
 	key_word = Y[i]
 	# pu.db
 	for each_word in tweet.split():
-		#if i==82:
+
+		# if i==11:
 		# 	print(each_word)
 		# 	print(each_word.lower())
 		# 	print(snowball_stemmer.stem(re.sub('[^A-Za-z0-9]+', '', each_word.lower())))
@@ -45,6 +46,7 @@ for tweet in tweets:
 		count+=1
 		if (count >= 110):
 			break
+
 	if pos != -1:
 		arr_full[j,...] = arr
 		Y_final[j] = pos
